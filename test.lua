@@ -6,6 +6,7 @@ require 'nn'
 require 'nngraph'
 require 'models.architectures'
 
+require 'data/stdin_unaligned_data_loader'
 
 util = paths.dofile('util/util.lua')
 options = require 'options'
@@ -41,7 +42,7 @@ if opt.align_data > 0 then
   data_loader = AlignedDataLoader()
 else
   require 'data.unaligned_data_loader'
-  data_loader = UnalignedDataLoader()
+  data_loader = StdinUnalignedDataLoader()
 end
 print( "DataLoader " .. data_loader:name() .. " was created.")
 data_loader:Initialize(opt)
