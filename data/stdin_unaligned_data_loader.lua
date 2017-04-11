@@ -30,11 +30,17 @@ end
 -- |return|: a table of two tables, each corresponding to
 -- the batch for dataset A and dataset B
 function StdinUnalignedDataLoader:LoadBatchForAllDatasets()
-  print("Please enter path to image to convert:")
-  local pathA = {io.read()}
-  local batchA = {self.loadSingleImage(self, pathA[1], self.opt)}
+    print("Please enter path to image to convert:")
+    local pathA = {io.read()}
+    while not file_exists(pathA[1]) do
+        print("The path does not exist")
+        print("Please enter path to image to convert:")
+        pathA = {io.read()}
+    end
 
-  return batchA, batchA, pathA, pathA
+    local batchA = {self.loadSingleImage(self, pathA[1], self.opt)}
+
+    return batchA, batchA, pathA, pathA
 end
 
 -- returns the size of each dataset
@@ -106,3 +112,7 @@ function StdinUnalignedDataLoader:loadSingleImage(path, opt)
 
 end
 
+function file_exists(name)
+    local f=io.open(name,"r")
+    if f~=nil then io.close(f) return true else return false end
+end
