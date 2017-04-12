@@ -90,8 +90,8 @@ s2 = opt.fineSize / opt.aspect_ratio
 
 visuals = {}
 
-for n = 1, math.floor(opt.how_many) do
-  print('processing batch ' .. n)
+while true do
+
   local cur_dataA, cur_dataB, cur_pathsA, cur_pathsB = data_loader:GetNextBatch()
 
   cur_pathsA = util.basename_batch(cur_pathsA)
@@ -111,9 +111,7 @@ for n = 1, math.floor(opt.how_many) do
   end
 
 
-  print('Saved images to: ', image_dir)
-  pathsA = TableConcat(pathsA, cur_pathsA)
-  pathsB = TableConcat(pathsB, cur_pathsB)
+  print('Done with ', cur_pathsA[1], image_dir)
 end
 
 labels = {}
